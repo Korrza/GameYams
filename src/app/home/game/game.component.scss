@@ -1,0 +1,43 @@
+.game-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .dice-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 22vh;
+        gap: 5px;
+        .dice-face {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            background-color: var(--secondary-color-brown);
+            display: flex;
+            justify-content: center;
+            line-height: 150px;
+            font-size: 150px;
+        }
+    }
+    .button-container {
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+
+        .launch-button {
+            width: 300px;
+            height: 100px;
+            border: none;
+            border-radius: 15px;
+            background-color: var(--secondary-color-brown);
+            color: bisque;
+            font-size: 3em;
+            text-transform: uppercase;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

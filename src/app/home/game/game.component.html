@@ -1,0 +1,8 @@
+<div class="game-container">
+    <div class='dice-container'>
+        <div class="dice-face" *ngFor="let dice of dices">{{ dice }}</div>
+    </div>
+    <div class="button-container">
+        <button class="launch-button" (click)="launchRandomDice()">Launch</button>
+    </div>
+</div>
