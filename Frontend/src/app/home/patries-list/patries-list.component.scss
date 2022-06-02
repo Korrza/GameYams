@@ -1,0 +1,23 @@
+.pastries-list-container {
+    margin-top: 7vh;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .sub-title {
+        font-size: 3em;
+    }
+
+    .pastries-list {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .pastrie {
+            padding: 3px;
+            border: 5px solid var(--secondary-color-brown);
+            border-radius: 10px;
+        }
+    }
+}

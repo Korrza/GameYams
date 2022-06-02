@@ -1,0 +1,10 @@
+<div class="pastries-list-container">
+    <h2 class="sub-title">Remaining Pastries</h2>
+    <div class="pastries-list">
+        <div class="pastrie" *ngFor="let pastrie of pastries">
+            <div class="pastrie-pic"></div>
+            <div class="name">{{pastrie.name}}</div>
+            <div class="quantity">Qty : {{pastrie.number}}</div>
+        </div>
+    </div>
+</div>

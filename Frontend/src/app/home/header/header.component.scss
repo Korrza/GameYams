@@ -14,9 +14,12 @@
     }
 
     .title-container {
-        color: var(--secondary-color-brown);
+        .title {
+            color: var(--secondary-color-brown);
+            font-size: 4em;
+            font-weight: bolder;
+        }
         display: flex;
         justify-content: center;
-        font-size: 1.8em;
     }
 }
