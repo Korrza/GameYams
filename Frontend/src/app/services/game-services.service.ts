@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Patries } from 'src/Models/Patries.models';
+import { PopUpComponent } from '../home/pop-up/pop-up.component';
 import { GettingDBService } from './getting-db.service';
 
 @Injectable({
@@ -7,14 +8,13 @@ import { GettingDBService } from './getting-db.service';
 })
 export class GameServicesService {
 
-  constructor(private db: GettingDBService) { }
+  constructor(private db: GettingDBService, private message: PopUpComponent) { }
 
   launchRandomDice() {
     return Math.floor(Math.random() * 6) + 1;
   }
 
   compareAllDices(dice : number[]): string {
-    console.log(dice)
     let result = "none";
     if (this.compareYams(dice)) {
       result = "yams"
@@ -25,26 +25,26 @@ export class GameServicesService {
     } else {
       result = "lose"
     }
+    console.log(result);
     return result;
   }
 
   comparePair(dice: number[]) {
-    let result = 0;
     let diceChecked = 0;
-    for (let i = 0; i < dice.length; i++) {
-      for (let j = i + 1; j < dice.length; j++) {
-        if (dice[i] === dice[j]) {
-          if (dice[i] != diceChecked) {
-            result++
-          }
-          diceChecked = dice[j];
-        }
-        if (result === 2) {
-          return true;
+    let diceBuffer = [dice[0], dice[1], dice[2], dice[3], dice[4]];
+
+    for (let i = 0; i < diceBuffer.length; i++) {
+      for (let j = i + 1; j < diceBuffer.length; j++) {
+        if (diceBuffer[i] == diceBuffer[j] && diceBuffer.length > 1
+            && diceBuffer[i] != -1 && diceBuffer[j] != -1) {
+          diceBuffer[j] = -1;
+          diceBuffer[i] = -1;
+          diceChecked++;
         }
       }
     }
-    if (result >= 2) {
+
+    if (diceChecked == 2) {
       return true;
     } else {
       return false;
@@ -53,19 +53,25 @@ export class GameServicesService {
 
   compareSquare(dice: number[]) {
     let result = 0;
-    for (let i = 1; i < dice.length; i++) {
-      if (dice[i] === dice[0]) {
+    let diceBuffer = [dice[0], dice[1], dice[2], dice[3], dice[4]];
+    let numberToBe = -2;
+
+    for (let i = 1; i < diceBuffer.length; i++) {
+      if (diceBuffer[i] === diceBuffer[0] && diceBuffer[i] != -1) {
         result++;
-        console.log(result)
+        numberToBe = diceBuffer[i];
+        diceBuffer[i] = -1;
       }
       if (result === 3) {
         return true;
       }
     }
-    for (let i = dice.length - 2; i > 0; i--) {
-      if (dice[i] === dice[dice.length - 1]) {
+    for (let i = diceBuffer.length - 2; i > 0; i--) {
+      if (numberToBe === -2) 
+        numberToBe = diceBuffer[diceBuffer.length - 1];
+      if (diceBuffer[i] === numberToBe) {
         result++;
-        console.log(result)
+        diceBuffer[i] = -1;
       }
       if (result === 3) {
         return true;
@@ -95,11 +101,10 @@ export class GameServicesService {
     
     while (i < timeToRoll) {
 
-      console.log(patries.length)
       let randomValue = Math.ceil(Math.random() * patries.length)-1;
       let patriesToTake = patries[randomValue];
 
-      if (patriesToTake.number > 0) {
+      if (patries[randomValue].number > 0) {
         let date : string[] = [];
 
         if (patriesToTake.date) {
@@ -119,11 +124,12 @@ export class GameServicesService {
         this.db.modifyPastrie(newPatrie);
         i++
       } else {
-        // remove patriesToTake from the list
         patries.splice(randomValue, 1);
-        console.log(",test,",patries.length);
       }
     }
+
+    this.message.showMessage("Vous avez gagné " + timeToRoll + " pâtisserie(s)");
+
   }
 
   getTimeToRoll(result: string) {
@@ -151,9 +157,20 @@ export class GameServicesService {
 
   getActualDate() {
     let date = new Date();
-    let day = date.getUTCDate();
-    let month = date.getUTCMonth() + 1;
-    let year = date.getUTCFullYear();
-    return `${day}/${month}/${year}`;
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    return `${day}/${month}/${year} à ${this.formatTheValue(hour)}:${this.formatTheValue(minutes)}:${this.formatTheValue(seconds)}`;
+  }
+
+  formatTheValue(value : number) {
+    if (value <= 9) {
+      return "0" + value;
+    } else {
+      return value;
+    }
   }
 }

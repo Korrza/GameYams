@@ -16,10 +16,16 @@
     .title-container {
         .title {
             color: var(--secondary-color-brown);
-            font-size: 4em;
+            font-size: 5.8em;
             font-weight: bolder;
+            font-family: "Foodpacker", sans-serif;
         }
         display: flex;
         justify-content: center;
     }
 }
+
+@font-face {
+    font-family: "Foodpacker";
+    src: url("../../../assets/fonts/Foodpacker.otf")
+   }

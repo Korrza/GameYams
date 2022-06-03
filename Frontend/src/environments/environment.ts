@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  APP_SERVER_API : "https://thin-snails-film-90-50-210-163.loca.lt"
 };
 
 /*

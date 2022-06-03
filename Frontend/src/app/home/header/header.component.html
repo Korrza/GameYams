@@ -1,7 +1,8 @@
 <header class="header-container">
     <div class='button-container'>
-        <a class="icon" routerLink="/statistics">statistics</a>
-        <a class="icon" routerLink="/home">inscription</a>
+        <a class="icon" routerLink="/statistics" *ngIf="isAuth">statistics</a>
+        <a class="icon" routerLink="/auth" *ngIf="!isAuth">se connecter</a>
+        <a class="icon" (click)="logout()" *ngIf="isAuth">se déconnecter</a>
     </div>
     <div class="title-container">
         <a class="title" routerLink="/home">BREAD'YAMS</a>

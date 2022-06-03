@@ -13,26 +13,24 @@ export class GameComponent implements OnInit {
   constructor(private gameService: GameServicesService, private DB: GettingDBService) { }
 
   dices : number[] = [];
-  patries : Patries[] = [];
+  pastries : Patries[] = [];
 
   ngOnInit(): void {
-    this.dices = [1,1,2,2,1]
-    for (let i = 0; i < 5; i++) {
-      // this.dices.push(this.gameService.launchRandomDice());
-    }
-    // get patries from DB
+    this.dices = [1,3,3,3,7];
     this.DB.getData().subscribe(
       data => {
-        this.patries = data;
-        this.gameService.getWinnedPatries(this.patries, "yams");
+        this.pastries = data;
       }
     )
-
   }
-
+  
   launchRandomDice() {
     this.ngOnInit();
+    this.dices = []
+    for (let i = 0; i < 5; i++) {
+      this.dices.push(this.gameService.launchRandomDice());
+    }
     let result = this.gameService.compareAllDices(this.dices);
-    this.gameService.getWinnedPatries(this.patries, result);
+    this.gameService.getWinnedPatries(this.pastries, result);
   }
 }

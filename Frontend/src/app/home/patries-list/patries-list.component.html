@@ -1,10 +1,21 @@
 <div class="pastries-list-container">
     <h2 class="sub-title">Remaining Pastries</h2>
-    <div class="pastries-list">
-        <div class="pastrie" *ngFor="let pastrie of pastries">
-            <div class="pastrie-pic"></div>
-            <div class="name">{{pastrie.name}}</div>
-            <div class="quantity">Qty : {{pastrie.number}}</div>
+    <div class="pastries-container">
+        <div class="winned-pastries-list">
+            <div class="pastries-title">Patisseries Gagnés</div>
+            <div class="winned-pastrie" *ngFor="let winPastrie of winnedPastries">
+                <div class="pastrie-pic"></div>
+                <div class="name">{{winPastrie.name}}</div>
+                <div class="quantity">Qty : {{winPastrie.number}}</div>
+                <div class="date" *ngFor="let date of winPastrie.date">{{date}}</div>
+            </div>
+        </div>
+        <div  class="available-pastries-list">
+            <div class="pastries-title">Patisseries disponible</div>
+            <div class="available-pastrie" *ngFor="let pastrie of pastries">
+                <div class="pastrie-pic"></div>
+                <div class="name">{{pastrie.name}}</div>
+            </div>
         </div>
     </div>
 </div>

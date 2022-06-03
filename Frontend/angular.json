@@ -76,6 +76,9 @@
             },
             "development": {
               "browserTarget": "GameYams:build:development"
+            },
+            "options": {
+              "disableHostCheck": true
             }
           },
           "defaultConfiguration": "development"

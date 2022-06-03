@@ -1,0 +1,40 @@
+<div>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <div class="input-part name-part">
+            <label for="firstName">Nom</label>
+            <input type="text" id="firstName" formControlName="firstName">
+        </div>
+        <div class="input-part">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email">
+        </div>
+        <div class="input-part">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password">
+        </div>
+        <div class="input-part">
+            <label for="confirm-password">Confirm password</label>
+            <input type="password" id="confirm-password" formControlName="confirmPassword">
+        </div>
+        <div>
+            <span id="error"></span>
+            <button class="submit-button"type="submit">Ajouter</button>
+        </div>
+    </form>
+</div>
+<div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div class="input-part name-part">
+            <label for="loginEmail">Email</label>
+            <input type="text" id="login-email" formControlName="loginEmail">
+        </div>
+        <div class="input-part">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="login-password" formControlName="loginPassword">
+        </div>
+        <div>
+            <span id="login-error"></span>
+            <button class="submit-button" type="submit">Ajouter</button>
+        </div>
+    </form>
+</div>

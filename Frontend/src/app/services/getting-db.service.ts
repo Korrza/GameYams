@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Patries } from 'src/Models/Patries.models';
+import { environment as env } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GettingDBService {
+  
 
   constructor(private http : HttpClient) { }
 
@@ -19,25 +21,11 @@ export class GettingDBService {
     this.patriesSubject.next(this.patries);
   }
 
-  getPatries() {
-    this.getData().subscribe(
-      (data: Patries[]) => {
-        this.patries = data;
-        this.emitPatries();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  test: Patries[] = [];
-
   modifyPastrie(Pastrie : Patries) {
     const headers = new HttpHeaders()
     .set("Content-Type", "application/json");
     // give a value in the req.body
-    this.http.put<Patries>('http://localhost:8000/api/patries', Pastrie, {headers}).subscribe();
+    this.http.put<Patries>(`${env.APP_SERVER_API}/api/patries`, Pastrie, {headers}).subscribe();
   }
 
   handleError() {
@@ -46,8 +34,9 @@ export class GettingDBService {
   }
 
   getData() : Observable<Patries[]> {
-    // wait 1 second before returning the data
-    return this.http.get<Patries[]>('http://localhost:8000/api/patries')
+    const headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
+    return this.http.get<Patries[]>(`${env.APP_SERVER_API}/api/patries`, {headers})
       .pipe(
         retry(1),
         catchError(this.handleError)

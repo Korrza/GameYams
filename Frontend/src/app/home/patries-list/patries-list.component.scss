@@ -9,15 +9,30 @@
         font-size: 3em;
     }
 
-    .pastries-list {
-        margin-top: 30px;
+    .pastries-container {
         display: flex;
-        flex-direction: column;
-        gap: 10px;
-        .pastrie {
-            padding: 3px;
-            border: 5px solid var(--secondary-color-brown);
-            border-radius: 10px;
+        justify-content: center;
+        flex-direction: row;
+        gap: 20px;
+        width: 100%;
+        .pastries-title {
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--secondary-color-brown);
+        }
+        .winned-pastries-list, 
+        .available-pastries-list {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .winned-pastrie, 
+            .available-pastrie {
+                padding: 3px;
+                border: 5px solid var(--secondary-color-brown);
+                border-radius: 10px;
+            }
         }
     }
+
 }
