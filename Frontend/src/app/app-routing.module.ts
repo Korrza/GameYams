@@ -10,6 +10,7 @@ const appRoutes: Routes = [
   { path: "statistics", component: PatriesListComponent },
   { path: "auth", pathMatch: "full", component: AuthPageComponent},
   { path: "", pathMatch: "full", component: GameComponent},
+  { path: "**", pathMatch: "full", component: GameComponent},
 ];
 
 @NgModule({

@@ -2,7 +2,7 @@
     <div class='button-container'>
         <a class="icon-stats" routerLink="/statistics" *ngIf="isAuth"></a>
         <a class="icon-login" routerLink="/auth" *ngIf="!isAuth"></a>
-        <a class="icon-logout" (click)="logout()" *ngIf="isAuth"></a>
+        <a class="icon-logout" routerLink="/home" (click)="logout()" *ngIf="isAuth"></a>
     </div>
     <div class="title-container">
         <span class="bread-image image"></span>

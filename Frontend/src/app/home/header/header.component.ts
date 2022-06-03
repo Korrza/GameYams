@@ -1,4 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import * as auth from 'src/app/services/auth.service';
 
@@ -12,7 +13,7 @@ import * as auth from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   isAuth = false;
   name = "";
@@ -20,6 +21,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.changeHeader()
     setTimeout(() => { this.ngOnInit() }, 1000 * 0.3)
+    if (!this.isAuth)
+      this.router.navigate(['/home']);
   }
 
   // modifie le contenu du header
@@ -34,8 +37,10 @@ export class HeaderComponent implements OnInit {
 
   // déconnecte l'utilisateur
   logout() {
+    console.log("logout")
     localStorage.removeItem('currentUser');
     this.changeHeader();
+    this.router.navigate(['/home']);
   }
 
 }
