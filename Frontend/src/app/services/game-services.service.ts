@@ -14,6 +14,7 @@ export class GameServicesService {
     return Math.floor(Math.random() * 6) + 1;
   }
 
+  // retourne une string en fonction du résultat du lancé de dés
   compareAllDices(dice : number[]): string {
     let result = "none";
     if (this.compareYams(dice)) {
@@ -29,6 +30,7 @@ export class GameServicesService {
     return result;
   }
 
+  // détermine si le joueur a eux deux paires de dés
   comparePair(dice: number[]) {
     let diceChecked = 0;
     let diceBuffer = [dice[0], dice[1], dice[2], dice[3], dice[4]];
@@ -51,6 +53,7 @@ export class GameServicesService {
     }
   }
 
+  // détermine si le joueur a eux quatre dés identiques
   compareSquare(dice: number[]) {
     let result = 0;
     let diceBuffer = [dice[0], dice[1], dice[2], dice[3], dice[4]];
@@ -81,6 +84,7 @@ export class GameServicesService {
     return false;
   }
 
+  // détermine si le joueur a eux cinq dés identiques
   compareYams(dice: number[]) {
     let result = 0;
     for (let i = 1; i < dice.length; i++) {
@@ -95,9 +99,15 @@ export class GameServicesService {
     }
   }
 
+  // donne une pâtisseries au hasard
   getWinnedPatries(patries: Patries[], result: string) {
     let timeToRoll = this.getTimeToRoll(result);
     let i = 0;
+
+    if (this.getAllWinnedPastries(patries) < patries.length * 10 - 50) {
+      this.message.showMessage("Il n'y à plus de patisseries à gagner");
+      return
+    }
     
     while (i < timeToRoll) {
 
@@ -109,10 +119,10 @@ export class GameServicesService {
 
         if (patriesToTake.date) {
           date = patriesToTake.date;
-          date.push(this.getActualDate());
+          date.push(this.getActualDate() + " par " + this.getLoggedUserName());
         }
         else
-          date.push(this.getActualDate());
+          date.push(this.getActualDate()  + " par " + this.getLoggedUserName());
 
         let newPatrie = new Patries(
           patriesToTake.name,
@@ -128,10 +138,25 @@ export class GameServicesService {
       }
     }
 
-    this.message.showMessage("Vous avez gagné " + timeToRoll + " pâtisserie(s)");
+    if (timeToRoll == 0)
+      this.message.showMessage("Vous n'avez pas gagné de pâtisserie");
+    else 
+      this.message.showMessage("Vous avez gagné " + timeToRoll + " pâtisserie(s)");
+
 
   }
 
+  // retourne le nombre de pâtisseries réstante
+  getAllWinnedPastries(pastries: Patries[]) {
+    // get all patries.number 
+    let allPastriesNumber = 0;
+    for (let i = 0; i < pastries.length; i++) {
+      allPastriesNumber += pastries[i].number;
+    }
+    return allPastriesNumber; 
+  }
+
+  // retourne une valeur en fonction du résultat du lancé de dés
   getTimeToRoll(result: string) {
     let timeToRoll = 0
 
@@ -155,6 +180,7 @@ export class GameServicesService {
     return timeToRoll;
   }
 
+  // retourne la date actuelle
   getActualDate() {
     let date = new Date();
     let day = date.getDate();
@@ -166,11 +192,22 @@ export class GameServicesService {
     return `${day}/${month}/${year} à ${this.formatTheValue(hour)}:${this.formatTheValue(minutes)}:${this.formatTheValue(seconds)}`;
   }
 
+  // rajoute un 0 devant un nombre
   formatTheValue(value : number) {
     if (value <= 9) {
       return "0" + value;
     } else {
       return value;
     }
+  }
+
+  // récupère le nom de l'utilisateur connecté
+  getLoggedUserName() {
+    let user = JSON.parse(localStorage.getItem('currentUser')!);
+
+    if (user == null) {
+      return "Anonyme"; 
+    }
+    return user.name;
   }
 }

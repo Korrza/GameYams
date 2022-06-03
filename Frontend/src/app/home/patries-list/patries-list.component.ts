@@ -14,11 +14,11 @@ export class PatriesListComponent implements OnInit {
 
   constructor(private DB: GettingDBService) { }
 
+  // récupère les pâtisseries et les stock dans les tableaux pastries et winnedPastries
   ngOnInit(): void {
     let pastriesBuffer: Patries[] = [];
-    console.log("test",JSON.parse(localStorage.getItem('currentUser')!));
     let user = JSON.parse(localStorage.getItem('currentUser')!)
-    console.log("isAuth", user.isAuth);
+
     if (user.isAuth) {
       this.DB.getData().subscribe(
         data => {
@@ -26,7 +26,6 @@ export class PatriesListComponent implements OnInit {
           for (let i = 0; i < pastriesBuffer.length; i++) {
             if (pastriesBuffer[i].number < 10) {
               this.winnedPastries.push(pastriesBuffer[i]);
-              console.log(pastriesBuffer[i]);
             }
           }
         }

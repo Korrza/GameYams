@@ -1,11 +1,12 @@
 <header class="header-container">
     <div class='button-container'>
-        <a class="icon" routerLink="/statistics" *ngIf="isAuth">statistics</a>
-        <a class="icon" routerLink="/auth" *ngIf="!isAuth">se connecter</a>
-        <a class="icon" (click)="logout()" *ngIf="isAuth">se déconnecter</a>
+        <a class="icon-stats" routerLink="/statistics" *ngIf="isAuth"></a>
+        <a class="icon-login" routerLink="/auth" *ngIf="!isAuth"></a>
+        <a class="icon-logout" (click)="logout()" *ngIf="isAuth"></a>
     </div>
     <div class="title-container">
+        <span class="bread-image image"></span>
         <a class="title" routerLink="/home">BREAD'YAMS</a>
-        <span class="dice-image"></span>
+        <span class="sec-bread-image image"></span>
     </div>
 </header>

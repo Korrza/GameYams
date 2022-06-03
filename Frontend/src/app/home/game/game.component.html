@@ -1,10 +1,12 @@
 <div class="game-container">
     <div class='dice-container'>
-        <div class="dice-face" *ngFor="let dice of dices">{{ dice }}</div>
+        <div class="dice-face" *ngFor="let dice of dices; let i = index">{{ dice }} <span class="dice-hider" [id]="'dice-hider-' + i"></span> </div>
     </div>
     <div class="button-container">
-        <button class="launch-button" (click)="launchRandomDice()">Launch</button>
+        <button id="button" class="launch-button" (click)="launchRandomDice()">Launch</button>
     </div>
+    <div class="happy-bread"></div>
+    <div class="bread-message" id="bread-message-box">Yam's !</div>
     <div class="message-container">
         <app-pop-up></app-pop-up>
     </div>

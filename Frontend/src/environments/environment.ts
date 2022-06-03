@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  APP_SERVER_API : "https://thin-snails-film-90-50-210-163.loca.lt"
+  APP_SERVER_API : "https://737e-2a01-cb19-55f-f200-9d2f-a771-8732-6a7d.eu.ngrok.io"
 };
 
 /*

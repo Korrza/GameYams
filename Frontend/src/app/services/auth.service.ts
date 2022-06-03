@@ -23,11 +23,8 @@ export class AuthService {
     let errorMessage = 'Error Occured';
     return throwError(() => errorMessage);
   }
-
-  createNewUser(email:string, password:string) {
-    console.log("New user created with email : " + email + " and password : " + password); 
-  }
-
+  
+  // récupère les données de l'utilisateur
   getLoginData() : Observable<User[]> {
     const headers = new HttpHeaders()
     .set("Content-Type", "application/json");
@@ -38,6 +35,7 @@ export class AuthService {
     );
   }
 
+  // ajoute un utilisateur
   addNewUser(user:User) {
     const headers = new HttpHeaders()
     .set("Content-Type", "application/json");
@@ -45,6 +43,7 @@ export class AuthService {
     this.http.post<User>(`${env.APP_SERVER_API}/api/register`, user, {headers}).subscribe();
   }
 
+  // connecte l'utilisateur
   login(email:string, password:string) {
     const headers = new HttpHeaders()
     .set("Content-Type", "application/json");
@@ -53,21 +52,29 @@ export class AuthService {
         localStorage.setItem('currentUser', JSON.stringify({email: data.email, name: data.firstName, isAuth: true}));
         isAuth = true;
         this.header.changeHeader();
-        let test = JSON.parse(localStorage.getItem('currentUser')!);
-        console.log("test : " + test.email);
       }
     });
   }
-
+  
+  // recupère si l'utilisateur est connecté
   getAuth() {
     let user = JSON.parse(localStorage.getItem('currentUser')!);
     return user.isAuth;
   }
 
+  // déconnecte l'utilisateur
   logout() {
     isAuth = true;
     this.header.changeHeader();
     localStorage.removeItem('currentUser');
-    console.log("test : " + JSON.parse(localStorage.getItem('currentUser')!));
+  }
+
+  // vérifie si l'email est valide
+  isEmailValid(email:string) {
+    return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
   }
 }

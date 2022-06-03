@@ -19,6 +19,7 @@ export class AuthPageComponent implements OnInit {
     this.initForm();
   }
 
+  // initialise le formulaire de connexion et d'inscription
   initForm() {
     this.registerForm = this.formBuilder.group({
       firstName: ["", Validators.required],
@@ -33,25 +34,25 @@ export class AuthPageComponent implements OnInit {
     })
   }
 
+  // récpère les données du formulaire d'inscription
   onRegister() {
     const firstName = this.registerForm.get("firstName")!.value;
     const email = this.registerForm.get("email")!.value;
     const password = this.registerForm.get("password")!.value;
     const confirmPassword = this.registerForm.get("confirmPassword")!.value;
 
-    if (firstName === "") {
-      document.getElementById("error")!.innerHTML = "Veuillez ajouter un nom";
-    } else if (email === "") {
-      document.getElementById("error")!.innerHTML = "Veuillez ajouter un email";
-    } else if (password === "") {
-      document.getElementById("error")!.innerHTML = "Veuillez ajouter un mot de passe";
+    if (firstName === "" || firstName.length < 3) {
+      document.getElementById("register-error-message")!.innerHTML = "Veuillez ajouter un nom valide";
+    } else if (email === "" || !this.auth.isEmailValid(email)) {
+      document.getElementById("register-error-message")!.innerHTML = "Veuillez ajouter un email valide";
+    } else if (password === "" || password.length < 6) {
+      document.getElementById("register-error-message")!.innerHTML = "Veuillez ajouter un mot de passe de 6 caractères minimum";
     } else if (confirmPassword === "") {
-      document.getElementById("error")!.innerHTML = "Veuillez confirmer votre mot de passe";
+      document.getElementById("register-error-message")!.innerHTML = "Veuillez confirmer votre mot de passe";
     } else if (password !== confirmPassword) {
-      document.getElementById("error")!.innerHTML = "Les mots de passe ne correspondent pas";
+      document.getElementById("register-error-message")!.innerHTML = "Les mots de passe ne correspondent pas";
     } else {
-      document.getElementById("error")!.innerHTML = "";
-      console.log("Nom de famille : " + firstName, "Email : " + email, "Mot de passe : " + password, "Confirmation du mot de passe : " + confirmPassword);
+      document.getElementById("register-error-message")!.innerHTML = "";
       const user = new User(firstName, email, confirmPassword);
       this.auth.addNewUser(user);
       //wait seconds
@@ -61,19 +62,18 @@ export class AuthPageComponent implements OnInit {
     }
   }
 
+  // récpère les données du formulaire de connexion
   onLogin() {
-    console.log("onLogin");
     const email = this.loginForm.get("loginEmail")!.value;
     const password = this.loginForm.get("loginPassword")!.value;
 
     if (email === "") {
-      document.getElementById("error")!.innerHTML = "Veuillez ajouter un email";
+      document.getElementById("login-error-message")!.innerHTML = "Veuillez ajouter un email";
     } else if (password === "") {
-      document.getElementById("error")!.innerHTML = "Veuillez ajouter un mot de passe";
+      document.getElementById("login-error-message")!.innerHTML = "Veuillez ajouter un mot de passe";
     } else {
-      document.getElementById("error")!.innerHTML = "";
+      document.getElementById("login-error-message")!.innerHTML = "";
       this.auth.login(email, password);
-      console.log("Email : " + email, "Mot de passe : " + password);
     }
   }
 }

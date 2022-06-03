@@ -15,15 +15,18 @@ export class PopUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // affiche le message voulu
   showMessage(message: string) {
+    let doc = document.getElementById("message-box") as HTMLDivElement;
 
-    document.getElementById("message-box")!.style.display = "block";
-    document.getElementById("message-box")!.innerHTML = message;
+    if (doc != null) {
+      doc!.style.display = "block";
+      doc.innerHTML = message;
 
-    setTimeout(() => {
-      document.getElementById("message-box")!.style.display = "none";
-    }, 4000);
-
+      setTimeout(() => {
+        doc.style.display = "none";
+      }, 4000);
+    }
   }
   
 }

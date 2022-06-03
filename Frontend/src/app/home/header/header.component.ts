@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
     setTimeout(() => { this.ngOnInit() }, 1000 * 0.3)
   }
 
+  // modifie le contenu du header
   changeHeader(){
     if (localStorage.getItem('currentUser') != null) {
       let currentUser = JSON.parse(localStorage.getItem('currentUser')!);
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  // déconnecte l'utilisateur
   logout() {
     localStorage.removeItem('currentUser');
     this.changeHeader();

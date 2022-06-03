@@ -5,23 +5,71 @@
         width: 100%;
         display: flex;
         justify-content: flex-end;
-        gap: 5px;
+        padding-top: 5px;
 
-        button {
+        a {
+            padding: 5px;
             width: 40px;
             height: 40px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            background-color: var(--secondary-color-brown);
+            box-shadow:0px 9px 0px 3px #70431E;
+            margin-right: 10px;
+
+            &:hover {
+                transform: translateY(2px);
+                box-shadow:0px 7px 0px 3px #70431E;
+                cursor: pointer;
+            }
+        }
+
+        .icon-stats {
+            background-image: url(../../../assets/images/statistics.png);
+        }
+        .icon-login {
+            background-image: url(../../../assets/images/log-in.png);
+        }
+        .icon-logout {
+            background-image: url(../../../assets/images/log-out.png);
         }
     }
 
     .title-container {
-        .title {
-            color: var(--secondary-color-brown);
-            font-size: 5.8em;
-            font-weight: bolder;
-            font-family: "Foodpacker", sans-serif;
-        }
         display: flex;
         justify-content: center;
+
+        .image {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 120%;
+            background-color: transparent;
+            width: 120px;
+            height: 120px;
+        }
+        .bread-image {
+            background-image: url(../../../assets/images/bread-logo.png);
+            transform: rotate(-20deg) translate(40px, 5px);
+        }
+        .title {
+            color: var(--secondary-color-brown);
+            background-color: transparent;
+            font-size: 5.8em;
+            z-index: 1;
+            font-weight: bolder;
+            font-family: "Foodpacker", sans-serif;
+            text-shadow: 0px 7px 0px #70431E;
+            &:hover{
+                transform: translateY(2px);
+                text-shadow: 0px 5px 0px #70431E;
+                cursor: pointer;
+            }
+        }
+        .sec-bread-image {
+            background-image: url(../../../assets/images/bread-logo-2.png);
+            transform: rotate(20deg) translate(-40px, 5px);
+        }
     }
 }
 

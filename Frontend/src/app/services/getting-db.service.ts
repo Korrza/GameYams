@@ -21,6 +21,7 @@ export class GettingDBService {
     this.patriesSubject.next(this.patries);
   }
 
+  // modifie les données de la pâtisserie
   modifyPastrie(Pastrie : Patries) {
     const headers = new HttpHeaders()
     .set("Content-Type", "application/json");
@@ -33,6 +34,7 @@ export class GettingDBService {
     return throwError(() => errorMessage);
   }
 
+  // récupère les pâtisseries
   getData() : Observable<Patries[]> {
     const headers = new HttpHeaders()
     .set("Content-Type", "application/json");
