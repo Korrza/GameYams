@@ -21,8 +21,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.changeHeader()
     setTimeout(() => { this.ngOnInit() }, 1000 * 0.3)
-    if (!this.isAuth)
-      this.router.navigate(['/home']);
   }
 
   // modifie le contenu du header
